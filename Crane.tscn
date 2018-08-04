@@ -34,7 +34,7 @@ height = 2.0
 radial_segments = 10
 rings = 1
 
-[node name="Crane" type="Spatial"]
+[node name="Crane" type="Spatial" index="0"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Script" ]
 
@@ -231,5 +231,5 @@ angular_limit/relaxation = 1.0
 motor/enable = false
 motor/target_velocity = 1.0
 motor/max_impulse = 1.0
-_sections_unfolded = [ "Nodes", "Params", "Transform" ]
+_sections_unfolded = [ "Angular Limit", "Nodes", "Params", "Transform" ]
 
