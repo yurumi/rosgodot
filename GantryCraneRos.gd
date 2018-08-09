@@ -22,14 +22,14 @@ func _physics_process(delta):
 	var crane_vel_x = CraneBody.get_linear_velocity().x
 	var load_pos = CraneLoad.get_translation()
 	var load_vel_x = CraneLoad.get_linear_velocity().x
+	var load_rot_z = CraneLoad.get_rotation().z
 
 	rosnode.setMeasurementData(crane_pos, crane_vel_x, \
 							   load_pos, load_vel_x, \
-							   asin(load_pos.x - crane_pos.x))
-	# CraneLoad.get_rotation().z)
+							   load_rot_z)
 
 	rosnode.spinOnce()
-	CraneBody.add_force(Vector3(ctrl_input / 2.0, 0, 0), Vector3(0, 0, 0))
+	CraneBody.add_force(Vector3(ctrl_input / 2.5, 0, 0), Vector3(0, 0, 0))
 	CraneCtrlVisualization.draw_ctrl_vis(crane_pos.x, ctrl_input)
 
 	Camera.update_pose(crane_pos.x)
