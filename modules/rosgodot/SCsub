@@ -1,0 +1,54 @@
+Import('env')
+
+sources = [
+        "register_types.cpp",
+        "rosgodot.cpp"
+]
+
+# First, create a custom env for the shared library.
+module_env = env.Clone()
+module_env.Append(CXXFLAGS='-fPIC') # Needed to compile shared library
+# We don't want godot's dependencies to be injected into our shared library
+module_env['LIBS'] = []
+
+# roscpp include
+module_env.Append(CPPPATH=['/opt/ros/melodic/include'])
+
+# roscpp libs
+module_env.Append(LIBS=['roscpp'])
+module_env.Append(LIBS=['rosconsole'])
+module_env.Append(LIBS=['rosconsole_log4cxx'])
+module_env.Append(LIBS=['rosconsole_backend_interface'])
+module_env.Append(LIBS=['roscpp_serialization'])
+module_env.Append(LIBS=['xmlrpcpp'])
+module_env.Append(LIBS=['rostime'])
+module_env.Append(LIBS=['cpp_common'])
+
+# other libs needed for roscpp
+module_env.Append(LIBS=['pthread'])
+module_env.Append(LIBS=['boost_filesystem'])
+module_env.Append(LIBS=['boost_signals'])
+module_env.Append(LIBS=['boost_regex'])
+module_env.Append(LIBS=['boost_system'])
+module_env.Append(LIBS=['boost_thread'])
+module_env.Append(LIBS=['boost_chrono'])
+module_env.Append(LIBS=['boost_date_time'])
+module_env.Append(LIBS=['boost_atomic'])
+module_env.Append(LIBS=['console_bridge'])
+module_env.Append(LIBS=['log4cxx'])
+
+# Path to ROS libs
+module_env.Append(LIBPATH=['/opt/ros/melodic/lib'])
+
+# Now define the shared library. Note that by default it would be built
+# into the module's folder, however it's better to output it into `bin`
+# next to the godot binary.
+shared_lib = module_env.SharedLibrary(target='#bin/rosgodot', source=sources)
+
+# Finally notify the main env it has our shared lirary as a new dependency.
+# To do so, SCons wants the name of the lib with it custom suffixes
+# (e.g. ".x11.tools.64") but without the final ".so".
+# We pass this along with the directory of our library to the main env.
+shared_lib_shim = shared_lib[0].name.rsplit('.', 1)[0]
+env.Append(LIBS=[shared_lib_shim])
+env.Append(LIBPATH=['#bin'])
