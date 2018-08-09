@@ -1,19 +1,23 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Crane.gd" type="Script" id=1]
-[ext_resource path="res://Wheel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://CraneMesh.tscn" type="PackedScene" id=2]
+[ext_resource path="res://CtrlVisualization.gd" type="Script" id=3]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="PhysicsMaterial" id=1]
 
-extents = Vector3( 0.859428, 0.325357, 0.200925 )
+bounce = 0.0
+bounce_combine_mode = 0
+friction = 0.0
+friction_combine_mode = 2
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.0252685, 1, 0.0247863 )
+extents = Vector3( 0.85, 0.3, 0.263717 )
 
 [sub_resource type="BoxShape" id=3]
 
-extents = Vector3( 0.2, 0.2, 0.2 )
+extents = Vector3( 0.05, 0.05, 0.05 )
 
 [sub_resource type="CubeMesh" id=4]
 
@@ -24,36 +28,146 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="CylinderMesh" id=5]
+[sub_resource type="SpatialMaterial" id=5]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
+flags_disable_ambient_light = false
+flags_ensure_correct_normals = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_billboard_keep_scale = false
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 1, 0, 0, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = true
+emission = Color( 0.709804, 0.196078, 0.196078, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo", "Emission" ]
+
+[sub_resource type="CylinderMesh" id=6]
 
 custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 flip_faces = false
-top_radius = 0.05
-bottom_radius = 0.05
-height = 2.0
+top_radius = 0.025
+bottom_radius = 0.025
+height = 1.5
 radial_segments = 10
 rings = 1
 
-[node name="Crane" type="Spatial" index="0"]
+[sub_resource type="SpatialMaterial" id=7]
+
+render_priority = 0
+flags_transparent = false
+flags_unshaded = false
+flags_vertex_lighting = false
+flags_no_depth_test = false
+flags_use_point_size = false
+flags_world_triplanar = false
+flags_fixed_size = false
+flags_albedo_tex_force_srgb = false
+flags_do_not_receive_shadows = false
+flags_disable_ambient_light = false
+flags_ensure_correct_normals = false
+vertex_color_use_as_albedo = false
+vertex_color_is_srgb = false
+params_diffuse_mode = 0
+params_specular_mode = 0
+params_blend_mode = 0
+params_cull_mode = 0
+params_depth_draw_mode = 0
+params_line_width = 1.0
+params_point_size = 1.0
+params_billboard_mode = 0
+params_billboard_keep_scale = false
+params_grow = false
+params_use_alpha_scissor = false
+albedo_color = Color( 1, 1, 1, 1 )
+metallic = 0.0
+metallic_specular = 0.5
+metallic_texture_channel = 0
+roughness = 0.0
+roughness_texture_channel = 0
+emission_enabled = false
+normal_enabled = false
+rim_enabled = false
+clearcoat_enabled = false
+anisotropy_enabled = false
+ao_enabled = false
+depth_enabled = false
+subsurf_scatter_enabled = false
+transmission_enabled = false
+refraction_enabled = false
+detail_enabled = false
+uv1_scale = Vector3( 1, 1, 1 )
+uv1_offset = Vector3( 0, 0, 0 )
+uv1_triplanar = false
+uv1_triplanar_sharpness = 1.0
+uv2_scale = Vector3( 1, 1, 1 )
+uv2_offset = Vector3( 0, 0, 0 )
+uv2_triplanar = false
+uv2_triplanar_sharpness = 1.0
+proximity_fade_enable = false
+distance_fade_enable = false
+_sections_unfolded = [ "Albedo" ]
+
+[node name="Crane" type="Spatial"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Script" ]
 
-[node name="WheelLeft" parent="." index="0" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.8, 0, 0 )
-
-[node name="WheelRight" parent="." index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.8, 0, 0 )
-
-[node name="Body" type="RigidBody" parent="." index="2"]
+[node name="Body" type="RigidBody" parent="." index="0"]
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
 collision_mask = 1
 mode = 0
-mass = 1.0
-friction = 1.0
+mass = 10.0
+friction = 0.0
 bounce = 0.0
-physics_material_override = null
+physics_material_override = SubResource( 1 )
 gravity_scale = 1.0
 custom_integrator = false
 continuous_cd = false
@@ -73,55 +187,23 @@ angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
 _sections_unfolded = [ "Script" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Body" index="0"]
+[node name="Scene Root" parent="Body" index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.434762, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.309927, 0 )
-shape = SubResource( 1 )
-disabled = false
-
-[node name="Rod" type="RigidBody" parent="." index="3"]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.969406, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 0
-collision_mask = 0
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-physics_material_override = null
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = false
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-linear_velocity = Vector3( 0, 0, 0 )
-linear_damp = -1.0
-angular_velocity = Vector3( 0, 0, 0 )
-angular_damp = -1.0
-_sections_unfolded = [ "Collision" ]
-
-[node name="CollisionShapeRod" type="CollisionShape" parent="Rod" index="0"]
 shape = SubResource( 2 )
 disabled = false
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "shape" ]
 
-[node name="Load" type="RigidBody" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.97431, 0 )
+[node name="Load" type="RigidBody" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
 collision_mask = 1
 mode = 0
-mass = 1.0
+mass = 10.0
 friction = 1.0
 bounce = 0.0
 physics_material_override = null
@@ -142,6 +224,7 @@ linear_velocity = Vector3( 0, 0, 0 )
 linear_damp = -1.0
 angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="Load" index="0"]
 shape = SubResource( 3 )
@@ -160,11 +243,11 @@ lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
 mesh = SubResource( 4 )
 skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Transform", "mesh" ]
+material/0 = SubResource( 5 )
+_sections_unfolded = [ "Material", "Transform", "mesh" ]
 
 [node name="RodMesh" type="MeshInstance" parent="Load" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0274, 0 )
+transform = Transform( 1, 0, 0, 0, 0.598566, 0, 0, 0, 1, 0, 0.544075, 0 )
 layers = 1
 material_override = null
 cast_shadow = 1
@@ -174,49 +257,12 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "mesh" ]
+material/0 = SubResource( 7 )
+_sections_unfolded = [ "Material", "mesh" ]
 
-[node name="HingeJointLeftWheel" type="HingeJoint" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0, 0 )
-nodes/node_a = NodePath("../Body")
-nodes/node_b = NodePath("../WheelLeft")
-solver/priority = 1
-collision/exclude_nodes = true
-params/bias = 0.3
-angular_limit/enable = false
-angular_limit/upper = 90.0
-angular_limit/lower = -90.0
-angular_limit/bias = 0.3
-angular_limit/softness = 0.9
-angular_limit/relaxation = 1.0
-motor/enable = false
-motor/target_velocity = 1.0
-motor/max_impulse = 1.0
-_sections_unfolded = [ "Nodes", "Transform" ]
-
-[node name="HingeJointRightWheel" type="HingeJoint" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0, 0 )
-nodes/node_a = NodePath("../Body")
-nodes/node_b = NodePath("../WheelRight")
-solver/priority = 1
-collision/exclude_nodes = true
-params/bias = 0.3
-angular_limit/enable = false
-angular_limit/upper = 90.0
-angular_limit/lower = -90.0
-angular_limit/bias = 0.3
-angular_limit/softness = 0.9
-angular_limit/relaxation = 1.0
-motor/enable = false
-motor/target_velocity = 1.0
-motor/max_impulse = 1.0
-_sections_unfolded = [ "Nodes", "Params", "Transform" ]
-
-[node name="HingeJoint" type="HingeJoint" parent="." index="7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0151262, 0 )
+[node name="HingeJoint" type="HingeJoint" parent="." index="2"]
 nodes/node_a = NodePath("../Body")
 nodes/node_b = NodePath("../Load")
 solver/priority = 1
@@ -232,4 +278,17 @@ motor/enable = false
 motor/target_velocity = 1.0
 motor/max_impulse = 1.0
 _sections_unfolded = [ "Angular Limit", "Nodes", "Params", "Transform" ]
+
+[node name="CtrlVisualization" type="ImmediateGeometry" parent="." index="3"]
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+script = ExtResource( 3 )
+_sections_unfolded = [ "Script" ]
 

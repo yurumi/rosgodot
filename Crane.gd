@@ -7,4 +7,5 @@ func _ready():
 
 func _physics_process(delta):
 	# Body.add_force(Vector3(-10, 0, 0), Vector3(0, 0, 0))
+	# print(Body.get_translation())
 	pass
