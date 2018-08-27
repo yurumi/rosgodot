@@ -1,0 +1,19 @@
+<library path="src">
+  <class name="GantryCrane" type="rqt_gantry_crane.rqt_gantry_crane.GantryCrane" base_class_type="rqt_gui_py::Plugin">
+    <description>
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Gantry Crane GUI</label>
+      <icon type="theme">system-help</icon>
+      <statustip></statustip>
+    </qtgui>
+  </class>
+</library>

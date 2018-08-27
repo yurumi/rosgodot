@@ -1,0 +1,12 @@
+<launch>
+  <!-- Launch controller node -->
+  <node name="reconfigure_server" pkg="gantry_crane_controller" type="reconfigure_server.py"/>
+  <node name="controller_manager" pkg="gantry_crane_controller" type="controller_manager.py"/>
+
+  <!-- Launch observer node -->
+  <node name="observer" pkg="gantry_crane_controller" type="observer.py"/>
+
+  <!-- Launch rqt_gui -->
+  <node name="rqt" pkg="rqt_gui" type="rqt_gui" args="--perspective-file $(find rqt_gantry_crane)/config/gantry_crane_gui.perspective" required="false" />
+
+</launch>
