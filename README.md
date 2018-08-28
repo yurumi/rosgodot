@@ -28,7 +28,7 @@ open source game engine [Godot](https://godotengine.org) with the
  ```
  user@host:~/godot$ scons platform=x11
  ```
- * If successfull, the new Class ```RosGodot``` is available in GDScript.
+ * The new Class ```RosGodot``` is now available in [GDScript](http://docs.godotengine.org/en/3.0/getting_started/scripting/gdscript/index.html).
 
 #### Demo project
  * Start ```roscore```
